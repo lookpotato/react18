@@ -4,17 +4,27 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "link:dev": "cd packages/react && npm link",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dev": "rimraf dist && rollup --bundleConfigAsCjs --config scripts/rollup/react.config.js"
+    "build:dev": "rimraf dist && rollup --bundleConfigAsCjs --config scripts/rollup/dev.config.js",
+    "demo": "vite serve demos/test-fc --config scripts/vite/vite.config.js --force"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-replace": "^6.0.1",
     "rimraf": "^6.0.1",
     "rollup": "^4.24.4",
     "rollup-plugin-generate-package-json": "^3.2.0",
-    "rollup-plugin-typescript2": "^0.36.0"
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^4.9.5",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^4.5.0"
   }
 }

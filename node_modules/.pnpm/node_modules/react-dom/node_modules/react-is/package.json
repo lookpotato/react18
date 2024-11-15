@@ -1,0 +1,12 @@
+{
+  "name": "react-is",
+  "version": "1.0.0",
+  "description": "react-is for custom react18 implementation",
+  "module": "index.ts",
+  "dependencies": {
+    "shared": "workspace:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+} 
