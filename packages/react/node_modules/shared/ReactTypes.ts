@@ -3,7 +3,7 @@ export type Key = string | null;
 export type Ref = any;
 export type Props = any;
 export type ElementType = any;
-export type Dispatch<State> = (action: State) => void;
+export type Dispatch<State> = (action: Action<State>) => void;
 
 export interface ReactElement {
   $$typeof: symbol | number;

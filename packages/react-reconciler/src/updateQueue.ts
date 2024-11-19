@@ -1,44 +1,50 @@
-import { Action } from "shared/ReactTypes";  
+import { Action, Dispatch } from "shared/ReactTypes";  
 
 export interface Update<State> {
   action: Action<State>;
+  next: Update<State> | null;
 }
 
 export interface UpdateQueue<State> {
   shared: {
-    pending: Update<State> | null,
-  }
+    pending: Update<State> | null;
+  };
+  dispatch: Dispatch<State> | null;
 }
 
 export const createUpdate = <State>(action: Action<State>): Update<State> => {
-  return { action };
+  return {
+    action: action,
+    next: null,
+  };
 }
 
-export const createUpdateQueue = <State>() => {
+export const createUpdateQueue = <State>(): UpdateQueue<State> => {
   return {
     shared: { pending: null },
-  } as UpdateQueue<State>;
+    dispatch: null
+  };
 }
 
 export const enqueueUpdate = <State>(updateQueue: UpdateQueue<State>, update: Update<State>) => {
   updateQueue.shared.pending = update;
 }
 
-export const processUpdateQueue = <State>(baseState: State, pendingUpdate: Update<State> | null): {
-  memoizedState: State,
-} => {
-  const result: ReturnType<typeof processUpdateQueue<State>> = {
-    memoizedState: baseState,
-  };
-  if (pendingUpdate !== null) {
-    const action = pendingUpdate.action;
-    if (action instanceof Function) {
-      result.memoizedState = action(baseState);
-    } else {
-      result.memoizedState = action;
+export function processUpdateQueue<State>(baseState: State, updates: Update<State> | null): { memoizedState: State } {
+    let newState = baseState;
+    let currentUpdate = updates;
+
+    while (currentUpdate) {
+        const action = currentUpdate.action;
+        // 如果 action 是函数，调用它
+        newState = typeof action === 'function' 
+            ? (action as (prevState: State) => State)(newState)
+            : action;
+        
+        currentUpdate = currentUpdate.next;
     }
-  }
-  return result;
+
+    return { memoizedState: newState };
 }
 
 

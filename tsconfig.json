@@ -18,8 +18,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "react": ["packages/react/src/index.ts"],
-      "shared/*": ["packages/shared/*"]
+      "react": ["packages/react"],
+      "react-dom": ["packages/react-dom"],
+      "shared": ["packages/shared"]
     },
     "typeRoots": [
       "./packages/react/src",

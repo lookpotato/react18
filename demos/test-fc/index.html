@@ -6,7 +6,15 @@
     <title>React 18 Demo</title>
   </head>
   <body>
-    <div id="root">如果是地方噶是的法师打发</div>
-    <script type="module" src="/main.tsx"></script>
+    <div id="root">{{num}}</div>
+    <script type="module" src="/main.tsx">
+      import React from 'react'
+      import { useState } from 'react'
+      
+      function App() {
+        const [num] = useState(100);
+        return <div>{num}</div>
+      }
+    </script>
   </body>
 </html>
